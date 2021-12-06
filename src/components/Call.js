@@ -74,17 +74,16 @@ function Call({ firebaseApp }) {
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
+
     const base = firebaseSlugBase();
 
-    if (localParticipant) {
-      const dbref = child(base, `user_statuses/${localParticipant?.id}`);
-      set(dbref, todos);
-      onValue(dbref, (snapshot) => {
-        if (snapshot.val()) {
-          console.log(snapshot.val());
-        }
-      });
-    }
+    const dbref = child(base, `user_statuses/${localParticipant?.id}`);
+    set(dbref, todos);
+    onValue(dbref, (snapshot) => {
+      if (snapshot.val()) {
+        console.log(snapshot.val());
+      }
+    });
   };
 
   const completeTodo = (id) => {
