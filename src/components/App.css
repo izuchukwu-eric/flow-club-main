@@ -29,11 +29,11 @@
   padding-bottom: 32px;
 }
 
-h1 {
-  /* margin: 32px 0; */
+/* h1 {
+  margin: 32px 0;
   color: #fff;
   font-size: 24px;
-}
+} */
 
 .complete {
   text-decoration: line-through;
@@ -41,7 +41,7 @@ h1 {
 }
 
 .todo-form {
-  margin-bottom: 32px;
+  margin: 32px;
 }
 
 .todo-input {

@@ -1,59 +1,58 @@
-import React, { useState } from "react";
-import Todo from "./Todo";
-import TodoForms from "./TodoForms";
+// import React, { useState } from "react";
+// import Todo from "./Todo";
+// import TodoForms from "./TodoForms";
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
+// function TodoList() {
+//   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
+//   const addTodo = (todo) => {
+//     if (!todo.text || /^\s*$/.test(todo.text)) {
+//       return;
+//     }
 
-    const newTodos = [todo, ...todos];
+//     const newTodos = [todo, ...todos];
 
-    setTodos(newTodos);
-  };
+//     setTodos(newTodos);
+//   };
 
-  const completeTodo = (id) => {
-    let updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
+//   const completeTodo = (id) => {
+//     let updatedTodos = todos.map((todo) => {
+//       if (todo.id === id) {
+//         todo.isComplete = !todo.isComplete;
+//       }
+//       return todo;
+//     });
 
-    setTodos(updatedTodos);
-  };
+//     setTodos(updatedTodos);
+//   };
 
-  const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
-    }
+//   const updateTodo = (todoId, newValue) => {
+//     if (!newValue.text || /^\s*$/.test(newValue.text)) {
+//       return;
+//     }
 
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
-  };
+//     setTodos((prev) =>
+//       prev.map((item) => (item.id === todoId ? newValue : item))
+//     );
+//   };
 
-  const removeTodo = (id) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
+//   const removeTodo = (id) => {
+//     const removeArr = [...todos].filter((todo) => todo.id !== id);
 
-    setTodos(removeArr);
-  };
+//     setTodos(removeArr);
+//   };
 
-  return (
-    <div>
-      <h1>I don't have time!!!!</h1>
-      <TodoForms onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <TodoForms onSubmit={addTodo} />
+//       <Todo
+//         todos={todos}
+//         completeTodo={completeTodo}
+//         removeTodo={removeTodo}
+//         updateTodo={updateTodo}
+//       />
+//     </div>
+//   );
+// }
 
-export default TodoList;
+// export default TodoList;
