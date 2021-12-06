@@ -79,7 +79,7 @@ function Call({ firebaseApp }) {
     const base = firebaseSlugBase();
 
     const dbref = child(base, `user_statuses/${localParticipant?.id}`);
-    set(dbref, todos);
+    set(dbref, newTodos);
     onValue(dbref, (snapshot) => {
       if (snapshot.val()) {
         console.log(snapshot.val());
