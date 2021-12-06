@@ -5,11 +5,10 @@ import {
   dailyParticipantInfo,
   makeParticipantUpdateHandler,
 } from "../utils/daily";
-import { db, firebaseSlugBase } from "../utils/firebase";
+import { firebaseSlugBase } from "../utils/firebase";
 import { getRoomUrl } from "../utils/room";
 import "./Call.css";
-import Todo from "./Todo";
-import TodoForms from "./TodoForms";
+import TodoList from "./TodoList";
 
 function Call({ firebaseApp }) {
   const callWrapperEl = useRef(null);
@@ -47,9 +46,8 @@ function Call({ firebaseApp }) {
     };
   }, []);
 
-  // const [isEditingStatus, setIsEditingStatus] = useState(false);
-  // const [currentStatus, setCurrentStatus] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState("");
   const [userStatuses, setUserStatuses] = useState({});
 
   useEffect(() => {
@@ -57,7 +55,6 @@ function Call({ firebaseApp }) {
     const statusesRef = child(base, "user_statuses");
     onValue(statusesRef, (snapshot) => {
       if (snapshot.val()) {
-        // console.log(snapshot.val());
         setUserStatuses(snapshot.val());
       }
     });
@@ -67,59 +64,13 @@ function Call({ firebaseApp }) {
     (participant) => participant.isLocal
   );
 
-  const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-
-    setTodos(newTodos);
-
+  const finishEditing = () => {
     const base = firebaseSlugBase();
-    const dbref = child(base, `user_statuses/${localParticipant?.id}`);
-    set(dbref, todos);
-    onValue(dbref, (snapshot) => {
-      if (snapshot.val()) {
-        console.log(snapshot.val());
-      }
-    });
-  };
-
-  const completeTodo = (id) => {
-    let updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
-
-    setTodos(updatedTodos);
-  };
-
-  const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
+    setIsEditingStatus(false);
+    if (localParticipant) {
+      set(child(base, `user_statuses/${localParticipant.id}`), currentStatus);
     }
-
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
   };
-
-  const removeTodo = (id) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
-
-    setTodos(removeArr);
-  };
-
-  // const finishEditing = () => {
-  //   const base = firebaseSlugBase();
-  //   setIsEditingStatus(false);
-  //   if (localParticipant) {
-  //     set(child(base, `user_statuses/${localParticipant.id}`), currentStatus);
-  //   }
-  // };
 
   return (
     <div style={{ height: "100vh", minWidth: "100vh", display: "flex" }}>
@@ -132,13 +83,7 @@ function Call({ firebaseApp }) {
         <h2>Statuses</h2>
         <h3>My Status</h3>
         {localParticipant && <p>name: {localParticipant?.name}</p>}
-        <TodoForms onSubmit={addTodo} />
-        <Todo
-          todos={todos}
-          completeTodo={completeTodo}
-          removeTodo={removeTodo}
-          updateTodo={updateTodo}
-        />
+        <TodoList />
         {/* {isEditingStatus ? (
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
                         <textarea

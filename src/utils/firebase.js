@@ -18,4 +18,3 @@ export function firebaseSlugBase() {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 export const slug = "2205619bfd";
-export const db = getDatabase();
