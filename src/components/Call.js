@@ -5,7 +5,7 @@ import {
   dailyParticipantInfo,
   makeParticipantUpdateHandler,
 } from "../utils/daily";
-import { firebaseSlugBase } from "../utils/firebase";
+import { db, firebaseSlugBase } from "../utils/firebase";
 import { getRoomUrl } from "../utils/room";
 import "./Call.css";
 import Todo from "./Todo";
@@ -77,7 +77,13 @@ function Call({ firebaseApp }) {
     const base = firebaseSlugBase();
 
     if (localParticipant) {
-      set(child(base, `user_statuses/${localParticipant.id}`), todos);
+      const dbref = child(base, `user_statuses/${localParticipant?.id}`);
+      set(dbref, todos);
+      onValue(dbref, (snapshot) => {
+        if (snapshot.val()) {
+          console.log(snapshot.val());
+        }
+      });
     }
   };
 
