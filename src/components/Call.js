@@ -57,7 +57,7 @@ function Call({ firebaseApp }) {
     const statusesRef = child(base, "user_statuses");
     onValue(statusesRef, (snapshot) => {
       if (snapshot.val()) {
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         setUserStatuses(snapshot.val());
       }
     });
@@ -77,9 +77,8 @@ function Call({ firebaseApp }) {
     setTodos(newTodos);
 
     const base = firebaseSlugBase();
-
     const dbref = child(base, `user_statuses/${localParticipant?.id}`);
-    set(dbref, newTodos);
+    set(dbref, todos);
     onValue(dbref, (snapshot) => {
       if (snapshot.val()) {
         console.log(snapshot.val());
