@@ -57,6 +57,7 @@ function Call({ firebaseApp }) {
     const statusesRef = child(base, "user_statuses");
     onValue(statusesRef, (snapshot) => {
       if (snapshot.val()) {
+        console.log(snapshot.val());
         setUserStatuses(snapshot.val());
       }
     });
