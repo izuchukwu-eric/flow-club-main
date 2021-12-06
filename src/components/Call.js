@@ -132,7 +132,7 @@ function Call({ firebaseApp }) {
         <h2>Statuses</h2>
         <h3>My Status</h3>
         {localParticipant && <p>name: {localParticipant?.name}</p>}
-        <TodoForms onSubmit={addTodo} />
+        <TodoForms onSubmit={() => addTodo} />
         <Todo
           todos={todos}
           completeTodo={completeTodo}
