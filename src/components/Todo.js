@@ -38,7 +38,11 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
           onClick={() => setEdit({ id: todo.id, value: todo.text })}
           className="edit-icon"
         />
-        <input type="checkbox" style={{ height: "20px", width: "20px" }} />
+        <input
+          type="checkbox"
+          style={{ height: "20px", width: "20px" }}
+          onClick={() => completeTodo(todo.id)}
+        />
       </div>
     </div>
   ));
